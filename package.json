@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/The-Naive-Bayesian/chat-tdd#readme",
   "dependencies": {
+    "@types/node": "^10.3.2",
     "express": "^4.16.3",
     "socket.io": "^2.1.1"
   },
