@@ -1,0 +1,35 @@
+{
+  "name": "chat-tdd",
+  "version": "1.0.0",
+  "description": "A test-driven-development example chat project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha \"**/*.spec.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Naive-Bayesian/chat-tdd.git"
+  },
+  "keywords": [
+    "tdd",
+    "chat",
+    "socket.io",
+    "typescript",
+    "javascript"
+  ],
+  "author": "Chris Emerson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/The-Naive-Bayesian/chat-tdd/issues"
+  },
+  "homepage": "https://github.com/The-Naive-Bayesian/chat-tdd#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "sinon": "^5.1.0"
+  }
+}
