@@ -12,7 +12,7 @@ it on a port.
 Since we're only hooking pieces together in this part, [we don't need to unit test yet](
 http://misko.hevery.com/2008/08/29/my-main-method-is-better-than-yours/).
 
-### Stage 1: Add a chat session handler
+### Stage 1: [Add a chat session handler](https://github.com/The-Naive-Bayesian/chat-tdd/tree/a059036426a5dcfc0d583fdd34cb11d5aa5b4962)
 When a user connects to our chat server we begin a session.
 
 When a new connection is made we have the opportunity to define callbacks for client events. Rather than define and pass
