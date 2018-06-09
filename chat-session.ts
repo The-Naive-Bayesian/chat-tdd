@@ -5,8 +5,10 @@
  */
 export class ChatSession {
     constructor(
-        private socket: {on: (event: string, callback: any) => void},
-        callback: () => void
+        private socket: {
+            on: (event: string, callback: (data: any) => void) => void
+        },
+        callback: (data: any) => void
     ) {
         socket.on('message', callback);
     }

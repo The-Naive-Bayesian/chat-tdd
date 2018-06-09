@@ -4,6 +4,8 @@ This project uses [test-driven development (TDD)](https://msdn.microsoft.com/en-
 You can look through past PRs and commits to see the process by which it gets built up. A summary of this process is
 described later in this document.
 
+Our project uses `socket.io` and `express`. For testing we use `mocha`, `chai`, and `sinon`. 
+
 ## The stages
 ### Stage 0: [A do-nothing server](https://github.com/The-Naive-Bayesian/chat-tdd/blob/ab8b795108eb03211b7a40e0baa326066b702509/index.ts)
 We want to start by building the equivalent of a `main()` function: put the pieces together to run a server and start
@@ -29,16 +31,60 @@ Although this only assigns `socket` as a property of our new class, this is enou
 
 Next, in `chat-session.spec.ts` we test that our new class can instantiate when passed an empty object `{}`.
 It turns out it can, and we can now confidently use this class in `index.ts`:
-```
-io.on('connection', (socket) => {
-    new ChatSession(socket);
-});
-```
+
+    io.on('connection', (socket) => {
+        new ChatSession(socket);
+    });
 
 ### Stage 2: Handle messages
 A chat server that doesn't support messages isn't really a chat server, so it's time to make messages work!
 With socket.io the Socket [acts very similarly to an EventEmitter](https://socket.io/docs/server-api/#socket),
-so we can use that as our mental model for how to mock out a Socket.
+so we can use that as our mental model for how to mock out a Socket for now.
 
+#### Beginnings
+To start, we create tests to ensure that our `ChatSession` class correctly attaches listeners to our Socket.
+Since our Socket uses async events and listeners, we use Mocha's option to pass a `done` function to
+a test that signals when an async test is complete.
 
+Here's an example of how to test that the 'message' event calls the callback:
 
+    it('should invoke callback on "message" event', function(done) {
+        const socket = new EventEmitter;
+        const _fake = fake();
+        const callback: () => void = () => {
+            _fake();
+            expect(_fake.called).to.be.true;
+            done();
+        };
+        new ChatSession(socket, callback);
+        socket.emit('message');
+    });
+    
+To make this test pass we need to update our `ChatSession` class to hook up listeners to our `Socket`:
+
+    export class ChatSession {
+        constructor(
+            private socket: {
+                on: (event: string, callback: () => void) => void
+            },
+            callback: () => void
+        ) {
+            socket.on('message', callback);
+        }
+    }
+
+#### Event data tests
+Message events should have messages! Luckily it's simple to build on our previous tests to ensure message data is
+passed through correctly.
+
+Here's an example of a test to ensure message data is passed to the 'message' callback.
+
+    it('should invoke callback with "data" object argument on "message" event', function(done) {
+        const socket = new EventEmitter;
+        const callback: (data: any) => void = (data) => {
+            expect(typeof data).to.equal('object');
+            done();
+        };
+        new ChatSession(socket, callback);
+        socket.emit('message', {});
+    });

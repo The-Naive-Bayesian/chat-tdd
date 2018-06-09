@@ -8,12 +8,12 @@ describe('ChatSession', function() {
         const socket = {on: (event, callback)=>{}};
         new ChatSession(socket, ()=>{});
     });
-    it('should invoke callback on "message" event once', function(done) {
+    it('should invoke callback on "message" event', function(done) {
         const socket = new EventEmitter;
         const _fake = fake();
         const callback: (data) => void = (data) => {
             _fake();
-            expect(_fake.calledOnce).to.be.true;
+            expect(_fake.called).to.be.true;
             done();
         };
         new ChatSession(socket, callback);
@@ -26,15 +26,15 @@ describe('ChatSession', function() {
             done();
         };
         new ChatSession(socket, callback);
-        socket.emit('message');
+        socket.emit('message', {});
     });
     it('"message" event "data" argument should contain string property "message"', function(done) {
         const socket = new EventEmitter;
         const callback: (data: {message: string}) => void = (data) => {
-            expect(typeof data.message).to.be('string');
+            expect(typeof data.message).to.equal('string');
             done();
         };
         new ChatSession(socket, callback);
-        socket.emit('message');
+        socket.emit('message', {message: 'hello, world'});
     });
 });
