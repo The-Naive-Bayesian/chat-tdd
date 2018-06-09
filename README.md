@@ -1,6 +1,6 @@
 # Test-driven Development Chat Example
 ## Overview
-This project uses test-driven development (TDD) to build a basic chat server using Socket.io.
+This project uses [test-driven development (TDD)](https://msdn.microsoft.com/en-us/library/aa730844(v=vs.80).aspx) to build a basic chat server using Socket.io.
 You can look through past PRs and commits to see the process by which it gets built up. A summary of this process is
 described later in this document.
 
@@ -34,3 +34,11 @@ io.on('connection', (socket) => {
     new ChatSession(socket);
 });
 ```
+
+### Stage 2: Handle messages
+A chat server that doesn't support messages isn't really a chat server, so it's time to make messages work!
+With socket.io the Socket [acts very similarly to an EventEmitter](https://socket.io/docs/server-api/#socket),
+so we can use that as our mental model for how to mock out a Socket.
+
+
+
