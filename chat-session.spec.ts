@@ -37,4 +37,13 @@ describe('ChatSession', function() {
         new ChatSession(socket, callback);
         socket.emit('message', {message: 'hello, world'});
     });
+    it('should pass the socket as the second argument to the "message" event', function(done) {
+        const _socket = new EventEmitter;
+        const callback: (data: {message: string}, socket: any) => void = (data, socket) => {
+            expect(socket).to.equal(_socket);
+            done();
+        };
+        new ChatSession(_socket, callback);
+        _socket.emit('message', {message: 'hello, world'});
+    })
 });

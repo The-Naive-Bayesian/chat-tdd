@@ -88,3 +88,11 @@ Here's an example of a test to ensure message data is passed to the 'message' ca
         new ChatSession(socket, callback);
         socket.emit('message', {});
     });
+
+#### Broadcast message
+Now that we have events passing data to callbacks, we will want to broadcast messages out to the world!
+With `socket.io` the `Socket` itself broadcasts events.
+
+In order to test this, we will need to ensure sockets are passed in to listener callbacks.
+A test for this might be:
+
