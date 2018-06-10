@@ -10,4 +10,10 @@ describe('messageHandler', function() {
         messageHandler({message: ''}, mockSock);
         expect(_fake.calledOnce).to.be.true;
     });
+    it('calls broadcast on the socket with correct arguments', function() {
+        const _fake = fake();
+        const mockSock = new MockSocket(_fake);
+        messageHandler({message: ''}, mockSock);
+        expect(_fake.calledWith('message', {message: ''})).to.be.true;
+    });
 });
