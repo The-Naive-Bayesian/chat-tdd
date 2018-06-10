@@ -10,7 +10,9 @@ let server = new http.Server(app);
 let io = socketIo(server);
 
 io.on('connection', (socket) => {
-    new ChatSession(socket);
+    new ChatSession(socket, (data: {message: string}, socket: any): void => {
+        socket.broadcast.emit('message', data);
+    });
 });
 
 server.listen(port, function() {
