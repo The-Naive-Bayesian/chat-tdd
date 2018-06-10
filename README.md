@@ -139,5 +139,38 @@ Now we're ready to write our failing test:
  
  After we add a passing implementation, we're ready for the next and final step of building our simple server.
 
-#### WIP: Who is talking?
+### Stage 4: Who's talking?
+Being able to send messages is great, but how do we know who's saying what?
+For our final step, we want to assign new connections a unique guest name,
+and allow users to set their username in a new socket event.
+
+#### Usernames
+For new connections we will start by assigning them a name "Guest #",
+where '#' will be the total number of past and present connections to the server as of their connection.
+This will be a property of the `Socket`, since it will persist on a per-connection basis.
+
+Let's start by testing that a new `ChatSession` object is provided a username:
+
+        it('should have a string username property', function() {
+            const socket = new MockSocket;
+            const session = new ChatSession(socket, ()=>{});
+            expect(typeof session.username).to.equal('string');
+        });
+
+This should fail since no `username` is ever assigned.
+
+The basic fix is simple: assign some constant `username` in the `ChatSession` constructor!
+This makes the test pass, but opens the next question: can we get unique usernames between connections?
+Our new test tells us this simple approach won't work:
+
+        it('should not have the same username shared by two instances', function() {
+            const socket = new MockSocket;
+            const session1 = new ChatSession(socket, ()=>{});
+            const session2 = new ChatSession(socket, ()=>{});
+            expect(session1.username).to.not.equal(session2.username);
+        });
+
+This now fails.
+
+#### Unique usernames
 

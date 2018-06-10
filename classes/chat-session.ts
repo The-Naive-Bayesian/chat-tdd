@@ -1,4 +1,4 @@
-import {SocketModel} from "./models/socket.model";
+import {SocketModel} from "../models/socket.model";
 /*
     To keep things testable, we want to use DI with our socket.
     This allows us to mock the socket.io objects and test our methods.
@@ -8,7 +8,8 @@ import {SocketModel} from "./models/socket.model";
 export class ChatSession {
     constructor(
         private socket: SocketModel,
-        callback: (data: any, socket: any) => void
+        callback: (data: any, socket: any) => void,
+        public username: string
     ) {
         socket.on('message', (data) => {
             callback(data, socket)

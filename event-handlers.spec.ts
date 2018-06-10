@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {MockSocket} from "./mock-classes/MockSocket";
+import {MockSocket} from "./classes/mock-classes/MockSocket";
 import {fake} from 'sinon';
 import {messageHandler} from "./event-handlers";
 
