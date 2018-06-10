@@ -1,6 +1,5 @@
 import {ChatSession} from "./chat-session";
 import {expect} from 'chai';
-import * as EventEmitter from 'events';
 import {fake} from 'sinon';
 import {MockSocket} from "./mock-classes/MockSocket";
 
