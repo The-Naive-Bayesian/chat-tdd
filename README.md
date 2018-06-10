@@ -173,4 +173,27 @@ Our new test tells us this simple approach won't work:
 This now fails.
 
 #### Unique usernames
+While we could approach this problem in a number of ways
+(a static counter property of ChatSession comes to mind,
+though [static things are hard to test](http://misko.hevery.com/2008/12/15/static-methods-are-death-to-testability/)),
+in keeping with the theme of dependency injection we choose to let the creator of a ChatSession instance
+decide what to name it by passing the username in the constructor.
+
+A quick refactor later and our unique username test looks like this:
+
+        it('should not force the same username to be shared by two instances', function() {
+            const socket = new MockSocket;
+            const session1 = new ChatSession(socket, ()=>{}, 'Guest 1');
+            const session2 = new ChatSession(socket, ()=>{}, 'Guest 2');
+            expect(session1.username).to.not.equal(session2.username);
+        });
+
+Easy, right? This may seem trivial, but that's a good thing - there's no reason to make things more
+complicated than they need to be, and if we need to we can test whatever builds these chat sessions to ensure
+unique usernames are passed in.
+
+#### Custom usernames
+Now we want to allow users to provide their own, custom usernames. We will do this through a new 'name change' event.
+This will involve a change to our ChatSession as well as a new event handler in `event-handlers.ts`.
+
 

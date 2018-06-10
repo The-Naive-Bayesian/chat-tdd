@@ -8,23 +8,18 @@ describe('ChatSession', function() {
     describe('structure', function(){
         it('should build', function() {
             const socket = new MockSocket;
-            new ChatSession(socket, ()=>{});
+            new ChatSession(socket, ()=>{}, '');
         });
         it('should have a string username property', function() {
             const socket = new MockSocket;
-            const session = new ChatSession(socket, ()=>{});
+            const session = new ChatSession(socket, ()=>{}, 'Guest 1');
             expect(typeof session.username).to.equal('string');
         });
-        it('should not have the same username shared by two instances', function() {
+        it('should not force the same username to be shared by two instances', function() {
             const socket = new MockSocket;
-            const session1 = new ChatSession(socket, ()=>{});
-            const session2 = new ChatSession(socket, ()=>{});
+            const session1 = new ChatSession(socket, ()=>{}, 'Guest 1');
+            const session2 = new ChatSession(socket, ()=>{}, 'Guest 2');
             expect(session1.username).to.not.equal(session2.username);
-        });
-        it('should reset the connection count between tests', function() {
-            const socket = new MockSocket;
-            const session1 = new ChatSession(socket, ()=>{});
-            expect(session1.username).to.equal('Guest 1');
         });
     });
     describe('event handling', function() {
@@ -36,7 +31,7 @@ describe('ChatSession', function() {
                 expect(_fake.called).to.be.true;
                 done();
             };
-            new ChatSession(socket, callback);
+            new ChatSession(socket, callback, '');
             socket.emit('message');
         });
         it('should invoke callback with "data" object argument on "message" event', function(done) {
@@ -45,7 +40,7 @@ describe('ChatSession', function() {
                 expect(typeof data).to.equal('object');
                 done();
             };
-            new ChatSession(socket, callback);
+            new ChatSession(socket, callback, '');
             socket.emit('message', {});
         });
         it('"message" event "data" argument should contain string property "message"', function(done) {
@@ -54,7 +49,7 @@ describe('ChatSession', function() {
                 expect(typeof data.message).to.equal('string');
                 done();
             };
-            new ChatSession(socket, callback);
+            new ChatSession(socket, callback, '');
             socket.emit('message', {message: 'hello, world'});
         });
         it('should pass the socket as the second argument to the "message" event', function(done) {
@@ -63,7 +58,7 @@ describe('ChatSession', function() {
                 expect(socket).to.equal(_socket);
                 done();
             };
-            new ChatSession(_socket, callback);
+            new ChatSession(_socket, callback, '');
             _socket.emit('message', {message: 'hello, world'});
         });
     });
