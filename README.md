@@ -121,5 +121,23 @@ To ensure we broadcast things correctly, we'll want to test our callbacks.
 So far, however, we've built our callbacks as part of our tests - we can't test something that we define in the test!
 At this point, then, we want to split out our callbacks into a separate module so we can test the callbacks themselves.
 
+Eventually our message callback will invoke the `broadcast.emit` method of our `Socket`,
+but for now we will just build up the skeleton without implementing behavior, so we can build a failing
+(but TS-compilable) test. We also allow our mock sockets to accept fakes for `broadcast.emit` so we can more easily
+test if and how that has been invoked.
+
+Now we're ready to write our failing test:
+
+    describe('messageHandler', function() {
+        it('calls broadcast on the socket', function() {
+            const _fake = fake();
+            const mockSock = new MockSocket;
+            messageHandler({message: ''}, mockSock);
+            expect(_fake.calledOnce).to.be.true;
+        });
+    });
+ 
+ After we add a passing implementation, we're ready for the next and final step of building our simple server.
+
 #### WIP: Who is talking?
 
