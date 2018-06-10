@@ -8,6 +8,6 @@ describe('messageHandler', function() {
         const _fake = fake();
         const mockSock = new MockSocket(_fake);
         messageHandler({message: ''}, mockSock);
-        expect(_fake.called).to.be.true;
+        expect(_fake.calledOnce).to.be.true;
     });
 });
