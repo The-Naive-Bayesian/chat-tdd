@@ -36,7 +36,7 @@ It turns out it can, and we can now confidently use this class in `index.ts`:
         new ChatSession(socket);
     });
 
-### Stage 2: Handle messages
+### Stage 2: [Handle messages](https://github.com/The-Naive-Bayesian/chat-tdd/tree/48dde4c2061f10a971a83563d902f521efa987ce)
 A chat server that doesn't support messages isn't really a chat server, so it's time to make messages work!
 With socket.io the Socket [acts very similarly to an EventEmitter](https://socket.io/docs/server-api/#socket),
 so we can use that as our mental model for how to mock out a Socket for now.
@@ -90,7 +90,7 @@ Here's an example of a test to ensure message data is passed to the 'message' ca
     });
 
 
-### Stage 3: Broadcasting
+### Stage 3: [Broadcasting](https://github.com/The-Naive-Bayesian/chat-tdd/tree/e8f37336f191b896107c4ab135e77f6ae4f3834f)
 Now that we have events passing data to callbacks, we will want to broadcast messages out to the world!
 With `socket.io` the `Socket` can broadcasts events to other sockets.
 Because of this, we will want to reference the `Socket` inside of our callbacks,
