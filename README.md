@@ -89,3 +89,15 @@ Here's an example of a test to ensure message data is passed to the 'message' ca
         socket.emit('message', {});
     });
 
+
+### Stage 3: Broadcasting
+Now that we have events passing data to callbacks, we will want to broadcast messages out to the world!
+With `socket.io` the `Socket` itself broadcasts events.
+
+#### WIP: Socket passed to callback
+In order to test this, we will need to ensure sockets are passed in to listener callbacks.
+
+#### WIP: Split out callbacks
+
+#### WIP: Who is talking?
+
