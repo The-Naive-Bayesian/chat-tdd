@@ -2,10 +2,7 @@ import {ChatSession} from "./chat-session";
 import {expect} from 'chai';
 import * as EventEmitter from 'events';
 import {fake} from 'sinon';
-
-class MockSocket extends EventEmitter {
-    broadcast = {emit: this.emit}
-}
+import {MockSocket} from "./mock-classes/MockSocket";
 
 describe('ChatSession', function() {
     it('should build', function() {
