@@ -1,13 +1,13 @@
 export interface SocketModel {
     on: (
-        event: string,
+        event: string | symbol,
         callback: (data: any) => void
     ) => void;
     emit: (
-        event: string,
+        event: string | symbol,
         ...args: any[]
     ) => void;
     broadcast: {
-        emit: (event: string, ...args: any[]) => void;
+        emit: (event: string | symbol, ...args: any[]) => void;
     };
 }
