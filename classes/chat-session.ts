@@ -1,4 +1,6 @@
 import {SocketModel} from "../models/socket.model";
+import {MessageEventModel} from "../models/message-event.model";
+import {NameChangeEventModel} from "../models/name-change-event.model";
 /*
     To keep things testable, we want to use DI with our socket.
     This allows us to mock the socket.io objects and test our methods.
@@ -8,11 +10,15 @@ import {SocketModel} from "../models/socket.model";
 export class ChatSession {
     constructor(
         private socket: SocketModel,
-        callback: (data: any, socket: any) => void,
+        messageHandler: (data: MessageEventModel, socket: SocketModel) => void,
+        nameChangeHandler: (data: NameChangeEventModel, session: ChatSession) => void,
         public username: string
     ) {
-        socket.on('message', (data) => {
-            callback(data, socket)
+        socket.on('message', (data: MessageEventModel) => {
+            messageHandler(data, socket)
         });
+        socket.on('name change', (data) => {
+            // nameChangeHandler(data, this);
+        })
     }
 }
