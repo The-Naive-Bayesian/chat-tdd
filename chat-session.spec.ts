@@ -45,5 +45,5 @@ describe('ChatSession', function() {
         };
         new ChatSession(_socket, callback);
         _socket.emit('message', {message: 'hello, world'});
-    })
+    });
 });

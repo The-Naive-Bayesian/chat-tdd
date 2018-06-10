@@ -8,8 +8,10 @@ export class ChatSession {
         private socket: {
             on: (event: string, callback: (data: any) => void) => void
         },
-        callback: (data: any) => void
+        callback: (data: any, socket: any) => void
     ) {
-        socket.on('message', callback);
+        socket.on('message', (data) => {
+            callback(data, socket)
+        });
     }
 }
