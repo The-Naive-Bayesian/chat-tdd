@@ -11,5 +11,5 @@ export const messageHandler = (
 };
 
 export const nameChangeHandler = (data: NameChangeEventModel, session: {username: string}) => {
-    // session.username = data.username;
+    session.username = data.username;
 };

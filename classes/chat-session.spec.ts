@@ -13,13 +13,13 @@ describe('ChatSession', function() {
         it('should have a string username property', function() {
             const socket = new MockSocket;
             const session = new ChatSession(socket, ()=>{}, ()=>{}, 'Guest 1');
-            expect(typeof session.username).to.equal('string');
+            expect(typeof session.username).to.strictEqual('string');
         });
         it('should not force the same username to be shared by two instances', function() {
             const socket = new MockSocket;
             const session1 = new ChatSession(socket, ()=>{}, ()=>{}, 'Guest 1');
             const session2 = new ChatSession(socket, ()=>{}, ()=>{}, 'Guest 2');
-            expect(session1.username).to.not.equal(session2.username);
+            expect(session1.username).to.not.strictEqual(session2.username);
         });
     });
 
@@ -39,7 +39,7 @@ describe('ChatSession', function() {
             it('should invoke callback with "data" object argument', function(done) {
                 const socket = new MockSocket;
                 const callback: (data: any) => void = (data) => {
-                    expect(typeof data).to.equal('object');
+                    expect(typeof data).to.strictEqual('object');
                     done();
                 };
                 new ChatSession(socket, callback, ()=>{}, '');
@@ -48,7 +48,7 @@ describe('ChatSession', function() {
             it('"data" argument should contain string property "message"', function(done) {
                 const socket = new MockSocket;
                 const callback: (data: {message: string}) => void = (data) => {
-                    expect(typeof data.message).to.equal('string');
+                    expect(typeof data.message).to.strictEqual('string');
                     done();
                 };
                 new ChatSession(socket, callback, ()=>{}, '');
@@ -57,7 +57,7 @@ describe('ChatSession', function() {
             it('should pass the socket as the second argument', function(done) {
                 const _socket = new MockSocket;
                 const callback: (data: {message: string}, socket: any) => void = (data, socket) => {
-                    expect(socket).to.equal(_socket);
+                    expect(socket).to.strictEqual(_socket);
                     done();
                 };
                 new ChatSession(_socket, callback, ()=>{}, '');
@@ -80,7 +80,7 @@ describe('ChatSession', function() {
             it('should invoke callback with "data" object argument', function(done) {
                 const socket = new MockSocket;
                 const callback: (data: any) => void = (data) => {
-                    expect(typeof data).to.equal('object');
+                    expect(typeof data).to.strictEqual('object');
                     done();
                 };
                 new ChatSession(socket, ()=>{}, callback, '');
@@ -89,7 +89,7 @@ describe('ChatSession', function() {
             it('""data" argument should contain string property "username"', function(done) {
                 const socket = new MockSocket;
                 const callback: (data: {username: string}) => void = (data) => {
-                    expect(typeof data.username).to.equal('string');
+                    expect(typeof data.username).to.strictEqual('string');
                     done();
                 };
                 new ChatSession(socket, ()=>{}, callback, '');
@@ -98,7 +98,7 @@ describe('ChatSession', function() {
             it('should pass the ChatSession as the second argument to the callback', function(done) {
                 const _socket = new MockSocket;
                 const callback: (data: {username: string}, session: ChatSession) => void = (data, session) => {
-                    expect(session.username).to.equal('Test name');
+                    expect(session.username).to.strictEquals('Test name');
                     done();
                 };
                 new ChatSession(_socket, ()=>{}, callback, 'Test name');
