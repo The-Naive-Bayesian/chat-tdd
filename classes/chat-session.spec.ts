@@ -45,7 +45,7 @@ describe('ChatSession', function() {
                 new ChatSession(socket, callback, ()=>{}, '');
                 socket.emit('message', {});
             });
-            it('"data" argument should contain string property "message"', function(done) {
+            it('event data argument should contain string message', function(done) {
                 const socket = new MockSocket;
                 const callback: (data: {message: string}) => void = (data) => {
                     expect(typeof data.message).to.equal('string');
@@ -86,7 +86,7 @@ describe('ChatSession', function() {
                 new ChatSession(socket, ()=>{}, callback, '');
                 socket.emit('name change', {});
             });
-            it('""data" argument should contain string property "username"', function(done) {
+            it('event data should contain string username', function(done) {
                 const socket = new MockSocket;
                 const callback: (data: {username: string}) => void = (data) => {
                     expect(typeof data.username).to.equal('string');
