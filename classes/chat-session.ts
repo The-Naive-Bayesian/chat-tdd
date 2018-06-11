@@ -18,7 +18,7 @@ export class ChatSession {
             messageHandler(data, socket)
         });
         socket.on('name change', (data) => {
-            // nameChangeHandler(data, this);
+            nameChangeHandler(data, this);
         })
     }
 }
