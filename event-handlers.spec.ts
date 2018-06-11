@@ -21,6 +21,6 @@ describe('nameChangeHandler', function() {
     it('sets the username', function() {
         const arg = {username: ''};
         nameChangeHandler({username: 'test'}, arg);
-        expect(arg.username).to.strictEqual('test');
+        expect(arg.username).to.equal('test');
     })
 });
