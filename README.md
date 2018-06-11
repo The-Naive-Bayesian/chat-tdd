@@ -196,4 +196,15 @@ unique usernames are passed in.
 Now we want to allow users to provide their own, custom usernames. We will do this through a new 'name change' event.
 This will involve a change to our ChatSession as well as a new event handler in `event-handlers.ts`.
 
+For the `ChatSession` we can mostly reuse tests from the 'message' event and modify them to fit the 'name change' event.
+To test the new event handler we will need to write a new test, but it should be straightforward:
 
+    describe('nameChangeHandler', function() {
+        it('sets the username', function() {
+            const arg = {username: ''};
+            nameChangeHandler({username: 'test'}, arg);
+            expect(arg.username).to.equal('test');
+        })
+    });
+
+Once we implement these changes, our chat server should be ready to rock!
